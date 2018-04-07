@@ -15,6 +15,7 @@ public class Main {
         // and this will need to be worked on
 
         System.out.println("NHL PLAYER STATS FINDER \n");
+        System.out.println("Created by Gordon Zhang :) \n");
         System.out.println("Finds the latest statistics for the NHL player in their most recent season \n");
         System.out.println("Please enter in the full name of the player you would like statistics for. Do not include dashes for players with middle names");
 
