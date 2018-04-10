@@ -1,7 +1,5 @@
 package com.company;
 
-import com.sun.deploy.util.StringUtils;
-
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
