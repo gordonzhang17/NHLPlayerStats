@@ -63,6 +63,15 @@ public class MakeURL {
 
         return url;
     }
+
+    public static String formattedName() {
+        String[] nameParts =  validNameChecker();
+        if (nameParts.length > 2) {
+            return nameParts[0] + nameParts[1] + nameParts[2];
+        } else {
+            return nameParts[0] + nameParts[1];
+        }
+    }
 }
 
 
