@@ -58,24 +58,26 @@ public class Main {
             System.out.println("Position: " + position);
         }
 
-        Element dataTable = document.select("table[border = 0]").first();
-        Element lastestYearPlayedRow = dataTable.select("tr[bgcolor = #E0E0E0]").last().previousElementSibling();
-        // TODO: sometimes the tag is #e0e0e0, so how to fix???
 
+
+        Element dataTable = document.select("table[border = 0]").first();
+        Element latestYearPlayedRow = dataTable.select("tr").last().previousElementSibling();
+        // TODO: deal with the situation where the player has played in a different professional league (not NHL)
+        // TODO: what if there is another person with the name?
 
         // now i have the information I need, split it up into parts
 
         // NOTE: ASSUME THIS IS FOR A NON-GOALIE PLAYER
         // TODO: create a separate template for goaltenders (and this is determine by the position we have parsed earlier)
 
-        String lastSeasonPlayed = lastestYearPlayedRow.select("td").get(0).text();
-        String lastTeamPlayedFor = lastestYearPlayedRow.select("td").get(1).text();
-        String league = lastestYearPlayedRow.select("td").get(2).text();
-        String gamesPlayed = lastestYearPlayedRow.select("td").get(3).text();
-        String goals = lastestYearPlayedRow.select("td").get(4).text();
-        String assists = lastestYearPlayedRow.select("td").get(5).text();
-        String points = lastestYearPlayedRow.select("td").get(6).text();
-        String penaltyInMinutes = lastestYearPlayedRow.select("td").get(7).text();
+        String lastSeasonPlayed = latestYearPlayedRow.select("td").get(0).text();
+        String lastTeamPlayedFor = latestYearPlayedRow.select("td").get(1).text();
+        String league = latestYearPlayedRow.select("td").get(2).text();
+        String gamesPlayed = latestYearPlayedRow.select("td").get(3).text();
+        String goals = latestYearPlayedRow.select("td").get(4).text();
+        String assists = latestYearPlayedRow.select("td").get(5).text();
+        String points = latestYearPlayedRow.select("td").get(6).text();
+        String penaltyInMinutes = latestYearPlayedRow.select("td").get(7).text();
         System.out.println("Last Season Played: " + lastSeasonPlayed);
         System.out.println("Last Team Played For: " + lastTeamPlayedFor);
         System.out.println("League: " + league);
@@ -85,8 +87,8 @@ public class Main {
         System.out.println("Points: " + points);
         System.out.println("Penalty in Minutes: " + penaltyInMinutes);
 
-        if (!lastestYearPlayedRow.select("td").get(8).text().matches(".*\\d+.*")) {
-            System.out.println("He did not participate in the playoffs");
+        if (!latestYearPlayedRow.select("td").get(8).text().matches(".*\\d+.*")) {
+            System.out.println("Did not participate in the playoffs in his latest season or is currently in the playoffs");
             //System.out.println(MakeURL.formattedName() + "did not participate in the playoffs");
         }
     }
