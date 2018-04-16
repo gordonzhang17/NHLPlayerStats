@@ -72,7 +72,14 @@ public class MakeURL {
             return nameParts[0] + nameParts[1];
         }
     }
+
+    public static String includeIceHockeyAtEndOfName(String formerURL) {
+        return formerURL + "_(ice_hockey)";
+    }
+
 }
+
+
 
 
 //        String[] nameParts = null;
