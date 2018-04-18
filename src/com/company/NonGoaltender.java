@@ -5,8 +5,24 @@ import org.jsoup.nodes.Element;
 
 public class NonGoaltender extends Player {
 
+    private String goals;
+    private String assists;
+    private String points;
+    private String penaltyInMinutes;
 
-    public static void printNonGoaltenderInfo(Element dataRow) {
+    public NonGoaltender(String lastSeasonPlayed, String lastTeamPlayedFor, String league, String gamesPlayed,
+                         String goals, String assists, String points, String penaltyInMinutes) {
+
+        super(lastSeasonPlayed, lastTeamPlayedFor, league, gamesPlayed);
+
+        this.goals = goals;
+        this.assists = assists;
+        this.points = points;
+        this.penaltyInMinutes = penaltyInMinutes;
+
+    }
+
+    public static void printInfo(Element dataRow){
 
         String lastSeasonPlayed = dataRow.select("td").get(0).text();
         String lastTeamPlayedFor = dataRow.select("td").get(1).text();
@@ -17,15 +33,15 @@ public class NonGoaltender extends Player {
         String assists = dataRow.select("td").get(5).text();
         String points = dataRow.select("td").get(6).text();
         String penaltyInMinutes = dataRow.select("td").get(7).text();
-        System.out.println("Last Season Played: " + lastSeasonPlayed);
-        System.out.println("Last Team Played For: " + lastTeamPlayedFor);
-        System.out.println("League: " + league);
-        System.out.println("Games Played: " + gamesPlayed);
-        System.out.println("Goals: " + goals);
-        System.out.println("Assists: " + assists);
-        System.out.println("Points: " + points);
-        System.out.println("Penalty in Minutes: " + penaltyInMinutes);
 
+        NonGoaltender nonGoaltender = new NonGoaltender(lastSeasonPlayed, lastTeamPlayedFor, league, gamesPlayed, goals, assists, points, penaltyInMinutes);
+
+        printInfo(nonGoaltender);
+
+        System.out.println("Goals: " + nonGoaltender.goals);
+        System.out.println("Assists: " + nonGoaltender.assists);
+        System.out.println("Points: " + nonGoaltender.points);
+        System.out.println("Penalty in Minutes: " + nonGoaltender.penaltyInMinutes);
 
         printPlayOffInfo(dataRow);
 

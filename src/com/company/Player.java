@@ -6,11 +6,23 @@ import org.jsoup.select.Elements;
 
 public class Player {
 
-    String lastSeasonPlayed;
-    String lastTeamPlayedFor;
-    String league;
-    String gamesPlayed;
+    //private String position;
 
+    private String lastSeasonPlayed;
+    private String lastTeamPlayedFor;
+    private String league;
+    private String gamesPlayed;
+
+    public Player(String lastSeasonPlayed, String lastTeamPlayedFor, String league, String gamesPlayed) {
+        this.lastSeasonPlayed = lastSeasonPlayed;
+        this.lastTeamPlayedFor = lastTeamPlayedFor;
+        this.league = league;
+        this.gamesPlayed = gamesPlayed;
+    }
+
+//    public Player(String position) {
+//        this.position = position;
+//    }
 
     public static void printPosition(Document document) {
 
@@ -20,7 +32,9 @@ public class Player {
         Elements positionRow = summaryTable.select("tr:nth-child(6)");
         // inside the HTML for the position
         Elements positionSecondRow = positionRow.select("td[class=role]");
-        String position = positionSecondRow.select("a[title]").text();
+        //String position = positionSecondRow.select("a[title]").text();
+        String position = positionSecondRow.text();
+        //Player player = new Player(position);
 
         // check if the player plays multiple positions:
         String[] positionParts = position.split(" ");
@@ -32,7 +46,6 @@ public class Player {
     }
 
     public static boolean isGoaltender(Document document) {
-
         Elements summaryTable = document.select("table[class=infobox vcard]");
         // first, we want the position of the player
         Elements positionRow = summaryTable.select("tr:nth-child(6)");
@@ -47,6 +60,14 @@ public class Player {
             //System.out.println(MakeURL.formattedName() + "did not participate in the playoffs");
         }
     }
+
+    public static void printInfo(Player player) {
+        System.out.println("Last Season Played: " + player.lastSeasonPlayed);
+        System.out.println("Last Team Played For: " + player.lastTeamPlayedFor);
+        System.out.println("League: " + player.league);
+        System.out.println("Games Played: " + player.gamesPlayed);
+    }
+
 
 
 }
