@@ -1,5 +1,6 @@
 package com.company;
 
+import org.jsoup.HttpStatusException;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
@@ -10,8 +11,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Document document;
-        Element dataRow = null;
-        String[] checkedNameAndSeparated;
+        Element dataRow;
         String completedURL;
 
         // TODO:
@@ -24,25 +24,25 @@ public class Main {
         System.out.println("Please enter in the full name of the player you would like statistics for. " + "Name entered must be a valid player " +
         "Can enter in any alphabetical order");
 
-        checkedNameAndSeparated = MakeURL.validNameChecker();
+        completedURL = MakeURL.createURL();
 
-        completedURL = MakeURL.createURL(checkedNameAndSeparated);
+        // the reason you need to put player.printposition and dataRow = ...
+        // is because yes, you can connect to an invalid name, but you cannot print position
+        // so need to catch the exception and then change the URL and try again
 
-        //System.out.println(completedURL);
+//        try {
+//            document = Connection.connect(completedURL);
+//            Player.printPosition(document);
+//            dataRow = DataSelection.selectData(document);
+//        } catch (NullPointerException e) {
+//            document = Connection.connect(MakeURL.makeNewURLWithIceHockey(completedURL));
+//            Player.printPosition(document);
+//            dataRow = DataSelection.selectData(document);
+//        }
 
-//        document = Connection.connect(completedURL);
-//
-//        Player.printPosition(document);
-
-        try {
-            document = Connection.connect(completedURL);
-            Player.printPosition(document);
-            dataRow = DataSelection.selectData(document);
-        } catch (NullPointerException e) {
-            document = Connection.connect(MakeURL.makeNewURLWithIceHockey(completedURL));
-            Player.printPosition(document);
-            dataRow = DataSelection.selectData(document);
-        }
+        document = Connection.connect(completedURL);
+        Player.printPosition(document);
+        dataRow = DataSelection.selectData(document);
 
         // TODO: what if there is another person with the name?
 

@@ -55,6 +55,7 @@ public class Player {
     }
 
     public static void printPlayOffInfo(Element dataRow) {
+        // TODO: this is not complete
         if (!dataRow.select("td").get(8).text().matches(".*\\d+.*")) {
             System.out.println("Did not participate in the playoffs in his latest season or is currently in the playoffs");
             //System.out.println(MakeURL.formattedName() + "did not participate in the playoffs");

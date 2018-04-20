@@ -36,13 +36,16 @@ public class MakeURL {
     // think of special player names that will require a different URL type
     // for example John Tavares
 
-    public static String createURL(String[] stringArray) {
+    public static String createURL() {
         String url = "https://en.wikipedia.org/wiki/";
+
+        String[] stringArray = validNameChecker();
 
         if (stringArray.length == 2) {
             String first = stringArray[0];
             first = first.substring(0, 1).toUpperCase() + first.substring(1).toLowerCase();
             String last = stringArray[1];
+
             if (last.contains("-")) {
                 last = namesWithDashes(last);
             } else if (last.contains("mc")){
