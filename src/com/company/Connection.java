@@ -7,37 +7,31 @@ import java.io.IOException;
 
 public class Connection {
 
-    public static Document connect(String completedURL) throws NullPageException, IOException {
+    public static Document connect(String completedURL) throws IOException {
 
         Document document;
 
         try {
+            // this try/catch block is for the jsoup connect function
             document = Jsoup.connect(completedURL).get();
-            System.out.println("first");
         } catch (IOException e) {
             throw new NullPageException();
         }
 
         if (document.text().contains("Wikipedia does not have an article with this exact name.")) {
-            // try to connect with new URL
-            System.out.println(document.outerHtml());
+            throw new NullPageException();
+        }
+//                document.text().contains("This disambiguation page lists articles about people with the same name. " +
+//                        "If an internal link led you here, you may wish to change the link to point directly to the intended article.")) {
+//
+//        }
+
+        if (!document.text().contains("NHL") && !document.text().contains("ice hockey") && !document.text().contains("Playing career")){
+            throw new NullPageException();
+        } else {
             document = Jsoup.connect(MakeURL.makeNewURLWithIceHockey(completedURL)).get();
-            if (document.text().contains("Wikipedia does not have an article with this exact name.")) {
-                throw new NullPageException();
-            }
-            System.out.println("1here");
-            else return document;
-        } else
-            System.out.println("2here");
-            return document;
+        }
+
+        return document;
     }
 }
-
-//            }
-//        } catch (NullPointerException e) {
-//            document = connect(MakeURL.makeNewURLWithIceHockey(completedURL));
-//            Player.printPosition(document);
-//            dataRow = DataSelection.selectData(document);
-//        }
-//        return document;
-//    }

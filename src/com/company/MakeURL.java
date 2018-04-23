@@ -34,7 +34,6 @@ public class MakeURL {
 
     // TODO:
     // think of special player names that will require a different URL type
-    // for example John Tavares
 
     public static String createURL() {
         String url = "https://en.wikipedia.org/wiki/";
@@ -102,8 +101,6 @@ public class MakeURL {
 
 
 }
-
-
 
 //    public static String includeIceHockeyAtEndOfName(String formerURL) {
 //        return formerURL + "_(ice_hockey)";
