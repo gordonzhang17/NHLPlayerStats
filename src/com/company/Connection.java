@@ -21,12 +21,9 @@ public class Connection {
         if (document.text().contains("Wikipedia does not have an article with this exact name.")) {
             throw new NullPageException();
         }
-//                document.text().contains("This disambiguation page lists articles about people with the same name. " +
-//                        "If an internal link led you here, you may wish to change the link to point directly to the intended article.")) {
-//
-//        }
 
-        if (!document.text().contains("NHL") && !document.text().contains("ice hockey") && !document.text().contains("Playing career")){
+        if (!document.text().contains("NHL") && !document.text().contains("ice hockey")
+                && !document.text().contains("Shoots")){
             throw new NullPageException();
         } else {
             document = Jsoup.connect(MakeURL.makeNewURLWithIceHockey(completedURL)).get();
