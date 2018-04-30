@@ -11,7 +11,7 @@ public class MakeURL {
         while (true) { // check if the entered name is valid or not
             Scanner scanner = new Scanner(System.in);
             String fullName = scanner.nextLine();
-            Pattern pattern = Pattern.compile("^[\\p{L} -]+$"); // regex to check for spaces, valid A-Z characters
+            Pattern pattern = Pattern.compile("^[\\p{L} .'-]+$"); // regex to check for spaces, valid A-Z characters
             Matcher matcher = pattern.matcher(fullName);
             if (matcher.matches()) {
                 nameParts = fullName.split(" ");
@@ -29,6 +29,9 @@ public class MakeURL {
                 System.out.println("Invalid Name. Name must have only alphabetical letters. Enter valid name.");
             }
         }
+//        for (int i = 0; i < nameParts.length ; i++ ) {
+//            System.out.println(nameParts[i]);
+//        }
         return nameParts;
     }
 
@@ -45,8 +48,12 @@ public class MakeURL {
             first = first.substring(0, 1).toUpperCase() + first.substring(1).toLowerCase();
             String last = stringArray[1];
 
+            if (first.contains("-")) {
+                first = firstNameWithDash(first);
+            }
+
             if (last.contains("-")) {
-                last = namesWithDashes(last);
+                last = lastNameWithDash(last);
             } else if (last.contains("mc")){
                 last = namesWithMc(last);
             } else if (last.contains("mac")) {
@@ -66,6 +73,8 @@ public class MakeURL {
             url = url + first + "_" + middle + "_" + last;
         }
 
+        //System.out.println(url);
+
         return url;
     }
 
@@ -78,7 +87,15 @@ public class MakeURL {
 //        }
 //    }
 
-    public static String namesWithDashes(String last) {
+    public static String firstNameWithDash(String first) {
+        String[] split = first.split("-");
+        split[0] = split[0].substring(0, 1).toUpperCase() + split[0].substring(1).toLowerCase();
+        split[1] = split[1].substring(0, 1).toUpperCase() + split[1].substring(1).toLowerCase();
+        return split[0] + "-" + split[1];
+
+    }
+
+    public static String lastNameWithDash(String last) {
         String[] splitLastName = last.split("-");
         splitLastName[0] = splitLastName[0].substring(0, 1).toUpperCase() + splitLastName[0].substring(1).toLowerCase();
         splitLastName[1] = splitLastName[1].substring(0, 1).toUpperCase() + splitLastName[1].substring(1).toLowerCase();
@@ -99,16 +116,7 @@ public class MakeURL {
 
     }
 
-
 }
-
-//    public static String includeIceHockeyAtEndOfName(String formerURL) {
-//        return formerURL + "_(ice_hockey)";
-//    }
-//
-//}
-
-
 
 
 //        String[] nameParts = null;

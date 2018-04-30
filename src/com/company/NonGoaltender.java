@@ -1,6 +1,7 @@
 package com.company;
 
 
+import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 public class NonGoaltender extends Player {
@@ -22,7 +23,7 @@ public class NonGoaltender extends Player {
 
     }
 
-    public static void printInfo(Element dataRow){
+    public static void printInfo(Document document, Element dataRow){
 
         String lastSeasonPlayed = dataRow.select("td").get(0).text();
         String lastTeamPlayedFor = dataRow.select("td").get(1).text();
@@ -41,9 +42,26 @@ public class NonGoaltender extends Player {
         System.out.println("Goals: " + nonGoaltender.goals);
         System.out.println("Assists: " + nonGoaltender.assists);
         System.out.println("Points: " + nonGoaltender.points);
-        System.out.println("Penalty in Minutes: " + nonGoaltender.penaltyInMinutes);
+        System.out.println("Penalty in Minutes: " + nonGoaltender.penaltyInMinutes + "\n");
 
-        printPlayOffInfo(dataRow);
+        playOffInfo(document, dataRow);
+
+    }
+
+    public static void printPlayoffInfo(Element dataRow) {
+
+        String gamesPlayed = dataRow.select("td").get(8).text();
+        String goals = dataRow.select("td").get(9).text();
+        String assists = dataRow.select("td").get(10).text();
+        String points = dataRow.select("td").get(11).text();
+        String penaltyInMinutes = dataRow.select("td").get(12).text();
+
+        System.out.println("Playoff games: " + gamesPlayed);
+        System.out.println("Playoff goals: " + goals);
+        System.out.println("Playoff assists: " + assists);
+        System.out.println("Playoff points: " + points);
+        System.out.println("Playoff in Minutes: " + penaltyInMinutes);
+
 
     }
 }

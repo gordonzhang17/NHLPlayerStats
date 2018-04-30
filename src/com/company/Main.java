@@ -1,6 +1,5 @@
 package com.company;
 
-import org.jsoup.HttpStatusException;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
@@ -21,8 +20,8 @@ public class Main {
 
         System.out.println("NHL PLAYER STATS FINDER \n");
         System.out.println("Finds the latest statistics for the player in their most recent NHL season \n");
-        System.out.println("Please enter in the full name of the player you would like statistics for. " + "Name entered must be a valid player " +
-        "If player has middle name, enter middle name's capitalization exactly. Other capitalization do not matter");
+        System.out.println("Please enter in the full name of the player you would like statistics for. \n" + "Name entered must be a valid player " +
+        "If player has middle name, enter middle name's capitalization exactly. Other capitalizations don't matter");
 
 
         while (true) {
@@ -35,16 +34,13 @@ public class Main {
             }
         }
 
-
         Player.printPosition(document);
         dataRow = DataSelection.selectData(document);
 
-        // TODO: what if there is another person with the name?
-
         if (Player.isGoaltender(document)) {
-            Goaltender.printInfo(dataRow);
+            Goaltender.printInfo(document, dataRow);
         } else {
-            NonGoaltender.printInfo(dataRow);
+            NonGoaltender.printInfo(document, dataRow);
         }
 
     }

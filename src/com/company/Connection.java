@@ -1,5 +1,6 @@
 package com.company;
 
+import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -18,15 +19,20 @@ public class Connection {
             throw new NullPageException();
         }
 
+
         if (document.text().contains("Wikipedia does not have an article with this exact name.")) {
+            // there actually isnt a wikipedia page for the given player, no chance of it existing
             throw new NullPageException();
         }
 
-        if (!document.text().contains("NHL") && !document.text().contains("ice hockey")
-                && !document.text().contains("Shoots")){
-            throw new NullPageException();
+        if (document.text().contains("NHL") && document.text().contains("ice hockey")) {
+            return document;
         } else {
-            document = Jsoup.connect(MakeURL.makeNewURLWithIceHockey(completedURL)).get();
+            try {
+                document = Jsoup.connect(MakeURL.makeNewURLWithIceHockey(completedURL)).get();
+            } catch (HttpStatusException e) {
+                throw new NullPageException();
+            }
         }
 
         return document;

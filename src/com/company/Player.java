@@ -32,14 +32,19 @@ public class Player {
         Elements positionRow = summaryTable.select("tr:nth-child(6)");
         // inside the HTML for the position
         Elements positionSecondRow = positionRow.select("td[class=role]");
-        //String position = positionSecondRow.select("a[title]").text();
         String position = positionSecondRow.text();
-        //Player player = new Player(position);
 
         // check if the player plays multiple positions:
-        String[] positionParts = position.split(" ");
-        if (positionParts.length > 2) {
-            System.out.println("Positions: " + positionParts[0] + " and " + positionParts[1] + " " + positionParts[2]);
+        String[] positionParts = position.split("/");
+//        for (int i = 0 ; i < positionParts.length ; i++) {
+//            System.out.println(positionParts[i]);
+//        }
+
+        if (positionParts.length > 1) {
+            if (positionParts[1].contains("[")) {
+                positionParts[1] = positionParts[1].substring(0, positionParts[1].indexOf("["));
+            }
+            System.out.println("Positions: " + positionParts[0] + " and " + positionParts[1]);
         } else {
             System.out.println("Position: " + position);
         }
@@ -54,11 +59,20 @@ public class Player {
         return positionSecondRow.select("a[title]").text().contains("Goaltender");
     }
 
-    public static void printPlayOffInfo(Element dataRow) {
-        // TODO: this is not complete
-        if (!dataRow.select("td").get(8).text().matches(".*\\d+.*")) {
-            System.out.println("Did not participate in the playoffs in his latest season or is currently in the playoffs");
-            //System.out.println(MakeURL.formattedName() + "did not participate in the playoffs");
+    public static void playOffInfo(Document document, Element dataRow) {
+        if (!dataRow.select("td").get(8).text().matches(".*\\d+.*")
+                || !dataRow.select("td").get(12).text().matches(".*\\d+.*")) {
+            System.out.println("Did not participate in the playoffs in his last season or is currently in the playoffs");
+        } else if (isGoaltender(document)) {
+            try {
+                Goaltender.printPlayoffInfo(dataRow);
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Cannot retrieve playoff statistics.");
+            }
+        } else try {
+            NonGoaltender.printPlayoffInfo(dataRow);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Cannot retrieve the playoff statistics.");
         }
     }
 
@@ -68,7 +82,5 @@ public class Player {
         System.out.println("League: " + player.league);
         System.out.println("Games Played: " + player.gamesPlayed);
     }
-
-
 
 }

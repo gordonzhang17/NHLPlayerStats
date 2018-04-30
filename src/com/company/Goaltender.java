@@ -1,5 +1,6 @@
 package com.company;
 
+import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 public class Goaltender extends Player {
@@ -28,14 +29,14 @@ public class Goaltender extends Player {
         this.savePercentage = savePercentage;
     }
 
-    public static void printInfo(Element dataRow) {
+    public static void printInfo(Document document, Element dataRow) {
 
-        String overtimeLoses = null;
-        String totalMinutes = null;
-        String goalsAllowed = null;
-        String shutouts = null;
-        String goalsAllowedAverage = null;
-        String savePercentage = null;
+        String overtimeLoses;
+        String totalMinutes;
+        String goalsAllowed;
+        String shutouts;
+        String goalsAllowedAverage;
+        String savePercentage;
 
         String lastSeasonPlayed = dataRow.select("td").get(0).text();
         String lastTeamPlayedFor = dataRow.select("td").get(1).text();
@@ -79,9 +80,56 @@ public class Goaltender extends Player {
         System.out.println("Goals Allowed: " + goaltender.goalsAllowed);
         System.out.println("Goals Allowed Average: " + goaltender.goalsAllowedAverage);
         System.out.println("Shutouts: " + goaltender.shutouts);
-        System.out.println("Save percentage: " + goaltender.savePercentage);
+        System.out.println("Save percentage: " + goaltender.savePercentage + "\n");
 
-        printPlayOffInfo(dataRow);
+        playOffInfo(document, dataRow);
+    }
+
+    public static void printPlayoffInfo(Element dataRow) {
+
+        String gamesPlayed;
+        String wins;
+        String loses;
+        String totalMinutes;
+        String goalsAllowed;
+        String shutouts;
+        String goalsAllowedAverage;
+        String savePercentage;
+
+
+        if (dataRow.select("td").get(6).text().contains("—")) {
+
+            gamesPlayed = dataRow.select("td").get(11).text();
+            wins = dataRow.select("td").get(12).text();
+            loses = dataRow.select("td").get(13).text();
+            totalMinutes = dataRow.select("td").get(14).text();
+            goalsAllowed = dataRow.select("td").get(15).text();
+            shutouts = dataRow.select("td").get(16).text();
+            goalsAllowedAverage = dataRow.select("td").get(17).text();
+            savePercentage = dataRow.select("td").get(18).text();
+
+        } else {
+
+            gamesPlayed = dataRow.select("td").get(12).text();
+            wins = dataRow.select("td").get(13).text();
+            loses = dataRow.select("td").get(14).text();
+            totalMinutes = dataRow.select("td").get(15).text();
+            goalsAllowed = dataRow.select("td").get(16).text();
+            shutouts = dataRow.select("td").get(17).text();
+            goalsAllowedAverage = dataRow.select("td").get(18).text();
+            savePercentage = dataRow.select("td").get(19).text();
+
+        }
+
+        System.out.println("Playoff Games Played: " + gamesPlayed);
+        System.out.println("Playoff Wins: " + wins);
+        System.out.println("Playoff Loses: " + loses);
+        System.out.println("Playoff Total Minutes: " + totalMinutes);
+        System.out.println("Playoff Goals Allowed: " + goalsAllowed);
+        System.out.println("Playoff Shutouts: " + shutouts);
+        System.out.println("Playoff Goals Allowed Average: " + goalsAllowedAverage);
+        System.out.println("Playoff Save percentage: " + savePercentage);
+
     }
 
 }
