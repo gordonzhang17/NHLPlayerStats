@@ -11,13 +11,10 @@ public class MakeURL {
         while (true) { // check if the entered name is valid or not
             Scanner scanner = new Scanner(System.in);
             String fullName = scanner.nextLine();
-            Pattern pattern = Pattern.compile("^[\\p{L} .'-]+$"); // regex to check for spaces, valid A-Z characters
+            Pattern pattern = Pattern.compile("^[\\p{L} .'-]+$");
             Matcher matcher = pattern.matcher(fullName);
             if (matcher.matches()) {
                 nameParts = fullName.split(" ");
-//                for (int i =0 ; i< nameParts.length; i++) {
-//                    System.out.println(nameParts[i]);
-//                }
 
                 if (nameParts.length < 2 || nameParts.length > 3) {
                     System.out.println("Given name length too short or too long. Enter valid name");
@@ -29,14 +26,8 @@ public class MakeURL {
                 System.out.println("Invalid Name. Name must have only alphabetical letters. Enter valid name.");
             }
         }
-//        for (int i = 0; i < nameParts.length ; i++ ) {
-//            System.out.println(nameParts[i]);
-//        }
         return nameParts;
     }
-
-    // TODO:
-    // think of special player names that will require a different URL type
 
     public static String createURL() {
         String url = "https://en.wikipedia.org/wiki/";
@@ -54,7 +45,7 @@ public class MakeURL {
 
             if (last.contains("-")) {
                 last = lastNameWithDash(last);
-            } else if (last.contains("mc")){
+            } else if (last.contains("mc")) {
                 last = namesWithMc(last);
             } else if (last.contains("mac")) {
                 last = namesWithMac(last);
@@ -72,20 +63,8 @@ public class MakeURL {
             last = last.substring(0, 1).toUpperCase() + last.substring(1).toLowerCase();
             url = url + first + "_" + middle + "_" + last;
         }
-
-        //System.out.println(url);
-
         return url;
     }
-
-//    public static String formattedName() {
-//        String[] nameParts = validNameChecker();
-//        if (nameParts.length > 2) {
-//            return nameParts[0] + nameParts[1] + nameParts[2];
-//        } else {
-//            return nameParts[0] + nameParts[1];
-//        }
-//    }
 
     public static String firstNameWithDash(String first) {
         String[] split = first.split("-");
@@ -103,35 +82,15 @@ public class MakeURL {
     }
 
     public static String namesWithMc(String last) {
-        return "Mc" + last.substring(2).substring(0,1).toUpperCase() + last.substring(3).toLowerCase();
+        return "Mc" + last.substring(2).substring(0, 1).toUpperCase() + last.substring(3).toLowerCase();
     }
 
     public static String namesWithMac(String last) {
-        return "Mac" + last.substring(3).substring(0,1).toUpperCase() + last.substring(4).toLowerCase();
-
+        return "Mac" + last.substring(3).substring(0, 1).toUpperCase() + last.substring(4).toLowerCase();
     }
 
     public static String makeNewURLWithIceHockey(String url) {
         return url + "_(ice_hockey)";
 
     }
-
 }
-
-
-//        String[] nameParts = null;
-//        String url = "https://en.wikipedia.org/wiki/";
-//
-//        while (true) {
-//            Pattern pattern = Pattern.compile("^[a-zA-Z\\\\s]*$"); // regex to check for spaces, valid A-Z characters
-//            Matcher matcher = pattern.matcher(playerName);
-//            if (matcher.matches()) {
-//                nameParts = playerName.split(" ");
-//                if (nameParts.length < 2 || nameParts.length > 3) {
-//                    System.out.println("Given name length too short or too long. Enter valid name");
-//                    // no player's name should have less than 2 parts or more than 3 parts
-//                } else System.out.println("Invalid Name. Enter valid name. Name must have only alphabetical letters");
-//            }
-//            break; // break when checked that the string is valid and i have split it up
-//        }
-

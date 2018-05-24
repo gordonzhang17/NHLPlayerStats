@@ -6,7 +6,6 @@ import org.jsoup.select.Elements;
 
 public class Player {
 
-    //private String position;
 
     private String lastSeasonPlayed;
     private String lastTeamPlayedFor;
@@ -14,31 +13,25 @@ public class Player {
     private String gamesPlayed;
 
     public Player(String lastSeasonPlayed, String lastTeamPlayedFor, String league, String gamesPlayed) {
+
         this.lastSeasonPlayed = lastSeasonPlayed;
         this.lastTeamPlayedFor = lastTeamPlayedFor;
         this.league = league;
         this.gamesPlayed = gamesPlayed;
     }
 
-//    public Player(String position) {
-//        this.position = position;
-//    }
-
     public static void printPosition(Document document) {
 
         assert document != null;
         Elements summaryTable = document.select("table[class=infobox vcard]");
-        // first, we want the position of the player
+
         Elements positionRow = summaryTable.select("tr:nth-child(6)");
-        // inside the HTML for the position
+
         Elements positionSecondRow = positionRow.select("td[class=role]");
         String position = positionSecondRow.text();
 
         // check if the player plays multiple positions:
         String[] positionParts = position.split("/");
-//        for (int i = 0 ; i < positionParts.length ; i++) {
-//            System.out.println(positionParts[i]);
-//        }
 
         if (positionParts.length > 1) {
             if (positionParts[1].contains("[")) {

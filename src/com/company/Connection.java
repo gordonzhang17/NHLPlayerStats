@@ -13,7 +13,6 @@ public class Connection {
         Document document;
 
         try {
-            // this try/catch block is for the jsoup connect function
             document = Jsoup.connect(completedURL).get();
         } catch (IOException e) {
             throw new NullPageException();
@@ -21,7 +20,6 @@ public class Connection {
 
 
         if (document.text().contains("Wikipedia does not have an article with this exact name.")) {
-            // there actually isnt a wikipedia page for the given player, no chance of it existing
             throw new NullPageException();
         }
 
